@@ -1,12 +1,28 @@
 {
+  "name": "hanan/telemetry-data-processing",
+  "description": "Telemetry Data Processing Web Application",
+  "type": "project",
   "require": {
-    "slim/slim": "^4.0",
-    "slim/psr7": "^1.0",
-    "php-di/php-di": "^7.1"
+    "php": ">=8.1",
+    "slim/slim": "^4.12",
+    "php-di/php-di": "^7.0",
+    "slim/psr7": "^1.7",
+    "twig/twig": "^3.0"
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "Helpers\\": "src/helpers/",
+      "Config\\": "app/config/",
+      "Routes\\": "app/routes/"
     }
+  },
+  "scripts": {
+    "start": [
+      "php -S localhost:8000 -t public"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }

@@ -1,5 +1,6 @@
 <?php
 
 
+require '../bootstrap.php';
 
-include 'bootstrap.php';
+
