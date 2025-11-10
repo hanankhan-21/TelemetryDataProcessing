@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login – Telemetry System{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2 class="login-title">Login</h2>
+
+    {# Optional error message #}
+    {% if login_failure_reason %}
+        <div class="alert alert-danger">{{ login_failure_reason }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ base_path }}/loginUser">
+        <label for="email">Email</label>
+        <input id="email" placeholder="Email" name="email" type="text"
+               class="form-input" maxlength="50" required>
+
+        <label for="password">Password</label>
+        <input id="password" placeholder="Password" name="password" type="password"
+               class="form-input" maxlength="50" required>
+
+        <input type="submit" value="Login" class="submit-button">
+    </form>
+
+    <div class="register-container">
+        <p>Don’t have an account?
+            <a href="{{ register }}">Register</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

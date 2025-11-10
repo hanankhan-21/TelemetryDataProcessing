@@ -7,5 +7,8 @@ return function (App $app): void {
     $app->addRoutingMiddleware();
 
     // Optional error middleware
-    $app->addErrorMiddleware(true, true, true);
+  $app->addErrorMiddleware(true, true, true);
+
+
+
 };

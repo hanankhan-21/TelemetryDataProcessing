@@ -7,6 +7,7 @@ use DI\Container;
 use Slim\Factory\AppFactory;
 use Helpers\Database;
 use Models\RegisterationModelModel;
+use Models\LoginModel;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -35,8 +36,8 @@ $middleware($app);
 $routes = require $routesDir . '/routes.php';
 
 $db = $container->get(Database::class);
+$db->connectToDatabase();
 
 $app->run();
-
 
 ?>

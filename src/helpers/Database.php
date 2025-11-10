@@ -2,163 +2,196 @@
 
 namespace Helpers;
 
-
-use DI\Container;
 use Psr\Container\ContainerInterface;
 use PDO;
 use PDOException;
 use Helpers\SQLQueries;
 use Exception;
-class Database{
-  
-     private $host;
-     private $pass;
-     private $dbName;
-     private $user;
-     private $port; 
-     private $charset;
-     private $db;
 
-     private $errors;
+class Database
+{
+    private string $host;
+    private string $pass;
+    private string $dbName;
+    private string $user;
+    private string $port;
+    private string $charset;
+    private ?PDO $db = null;
 
-     private $prepared_statement;
+    private array $errors = [
+        'db_error'  => false,
+        'sql_error' => null,
+    ];
 
+    private $prepared_statement;
 
-     public function __construct(ContainerInterface $container){
- 
-      $dbSettings = $container->get('settings')['db'];
-        $this->host    = $dbSettings['host'];
-        $this->dbName  = $dbSettings['dbname'];
-        $this->user    = $dbSettings['user'];
-        $this->pass    = $dbSettings['pass'];
-        $this->charset = $dbSettings['charset'];
-        $this->port    = $dbSettings['port'];
-
-
-     }
-
-
-      public function __destruct()
+    public function __construct(ContainerInterface $container)
     {
-        // Optional: close DB connection
+        $dbSettings     = $container->get('settings')['db'];
+        $this->host     = $dbSettings['host'];
+        $this->dbName   = $dbSettings['dbname'];
+        $this->user     = $dbSettings['user'];
+        $this->pass     = $dbSettings['pass'];
+        $this->charset  = $dbSettings['charset'];
+        $this->port     = $dbSettings['port'];
+    }
+
+    public function __destruct()
+    {
         $this->db = null;
     }
 
-    public function connectToDatabase(){
-       if($this->db instanceof PDO){
-        return $this->db;
-       }
-    
-    $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->dbName};charset={$this->charset}";
-    try {
+    public function connectToDatabase(): PDO
+    {
+        if ($this->db instanceof PDO) {
+            return $this->db;
+        }
+
+        $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->dbName};charset={$this->charset}";
+
+        try {
             $this->db = new PDO($dsn, $this->user, $this->pass, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ]);
         } catch (PDOException $e) {
-            // For now, print and exit (in production: log instead)
+            // In production, log instead of die()
             die('Database connection failed: ' . $e->getMessage());
         }
 
-       
         return $this->db;
-
     }
 
-
-
-    public function testConnection()
-{
-    try {
-        $pdo = $this->connectToDatabase();
-        echo "✅ Database connection successful!";
-    } catch (PDOException $e) {
-        echo "❌ Connection failed: " . $e->getMessage();
-    }
-}
-
-  public function safeQuery($query, array $params = null ){
-        $this->errors['db_error'] = false;
-        $query_parameters = $params;
-
-        try {
-            $this->prepared_statement = $this->db->prepare($query);
-            $execute_result = $this->prepared_statement->execute($query_parameters);
-            $this->errors['execute-OK'] = $execute_result;
-        } catch (PDOException $exception_object) {
-            $error_message = 'PDO Exception caught. ';
-            $error_message .= 'Error with the database access.' . "\n";
-            $error_message .= 'SQL query: ' . $query . "\n";
-            $error_message .= 'Error: ' . var_dump($this->prepared_statement->errorInfo(), true) . "\n";
-            $this->errors['db_error'] = true;
-            $this->errors['sql_error'] = $error_message;
-        }
-        return $this->errors['db_error'];
-
-
-    }
-
-
-  public function addUser($validated_fullName, $validated_email, $validated_phoneNumber, $hashed_password){
-
-        try{
-            $sql_query = SQLQueries::addNewUser();
-            $queryParameters = [
-                ':fullName' => $validated_fullName,
-                ':email' => $validated_email,
-                ':phoneNumber' => $validated_phoneNumber,
-                ':password' => $hashed_password,
-            ];
-
-            $Result = $this->safeQuery($sql_query, $queryParameters);
-
-
-        }
-        catch(Exception $e){
-           $this->errors['db_error']  = true;
-            $this->errors['sql_error'] = $e->getMessage();
-            return false;
-        }
-
-        if ($Result === false) {
-            return true;
-        } else {
-            return "Database error";
-        }
-    }
-
-    public function userExists($validatedEmail)
+    public function testConnection(): void
     {
         try {
-            $pdo       = $this->connectToDatabase();
-            $sqlQuery  = SQLQueries::returnUserDetails();
-            $stmt      = $pdo->prepare($sqlQuery);
-            $stmt->execute([
-                ':email' => $validatedEmail,
-            ]);
+            $this->connectToDatabase();
+            echo "Database connection successful!";
+        } catch (PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+        }
+    }
 
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    /**
+     * safeQuery
+     *
+     * - uses prepared statements (prevents SQL injection)
+     * - For SELECT: returns array of rows ( [] if none )
+     * - For INSERT/UPDATE/DELETE: returns true on success
+     * - On error: returns false and sets $this->errors
+     */
+    public function safeQuery(string $query, array $params = []): mixed
+    {
+        $this->errors = ['db_error' => false, 'sql_error' => null];
 
-            // If a row is returned, user exists
-            if ($row !== false) {
-                // You can either return true or return $row depending on what you need
-                return true;
-            } else {
-                return false;
+        try {
+            $pdo  = $this->connectToDatabase();
+            $stmt = $pdo->prepare($query);
+            $stmt->execute($params);
+
+            // Detect query type (first word of query)
+            $queryType = strtoupper(strtok(trim($query), ' '));
+
+            if ($queryType === 'SELECT') {
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $rows ?: [];
             }
-        } catch (Exception $e) {
-            // optional: store error
+
+            // For non-SELECT (INSERT/UPDATE/DELETE), just say success
+            return true;
+
+        } catch (PDOException $e) {
             $this->errors['db_error']  = true;
             $this->errors['sql_error'] = $e->getMessage();
             return false;
         }
     }
 
+    public function getLastError(): ?string
+    {
+        return $this->errors['sql_error'] ?? null;
+    }
 
+    /**
+     * Insert a new user
+     * Returns: true on success, false on DB error
+     */
+    public function addUser($validated_fullName, $validated_email, $validated_phoneNumber, $hashed_password): bool
+    {
+        try {
+            $sql_query = SQLQueries::addNewUser();
+            $queryParameters = [
+                ':fullName'    => $validated_fullName,
+                ':email'       => $validated_email,
+                ':phoneNumber' => $validated_phoneNumber,
+                ':password'    => $hashed_password,
+            ];
 
+            $result = $this->safeQuery($sql_query, $queryParameters);
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+
+        // For INSERT, safeQuery returns true on success, false on error
+        return $result === true;
+    }
+
+    /**
+     * Check if user exists by email
+     * Returns: true if user found, false if not found or DB error
+     */
+    public function userExists(string $validatedEmail): bool
+    {
+        try {
+            $sqlQuery = SQLQueries::returnUserDetails();
+            $params   = [':email' => $validatedEmail];
+
+            $rows = $this->safeQuery($sqlQuery, $params);
+
+            if ($rows === false) {
+                // DB error
+                return false;
+            }
+
+            return !empty($rows);
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Retrieve a single user row by email
+     * Returns: array (user row) on success, false if not found or DB error
+     */
+    public function retrieveUser(string $validatedEmail): array|false
+    {
+        try {
+            $sqlQuery = SQLQueries::returnUserDetails();
+            $params   = [':email' => $validatedEmail];
+
+            $rows = $this->safeQuery($sqlQuery, $params);
+
+            if ($rows === false || empty($rows)) {
+                // DB error OR no user found
+                return false;
+            }
+
+            // return first row (email is unique)
+            return $rows[0];
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
 }
-
-
 
 ?>
