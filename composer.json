@@ -12,8 +12,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Models\\": "src/models",
       "Helpers\\": "src/helpers/",
+      "Controllers\\": "src/controllers/",
+      "Models\\": "src/models/",
+      "Views\\": "src/views/",
       "Config\\": "app/config/",
       "Routes\\": "app/routes/"
     }

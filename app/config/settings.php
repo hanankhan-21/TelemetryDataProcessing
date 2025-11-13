@@ -16,7 +16,7 @@ return function (Container $container, string $app_dir): void {
 
         // General app info
         'application_name' => 'Telemetry Processing',
-        'landing_page'     => $app_url,
+'landing_page' => '/telemetryDataProcessing2/public',
 
         // Error / debug
         'displayErrorDetails' => true,   // set false in production
@@ -26,8 +26,8 @@ return function (Container $container, string $app_dir): void {
         'debug'               => true,
 
         // Assets
-        'images_path' => $app_url . '/media/',
-        'css_path'    => $app_url . '/css/standard.css',
+        'images_path' => $app_url . '/assests/media',
+        'css_path'    => $app_url . '/assets/css/style.css',
 
         // Database settings
         'db' => [

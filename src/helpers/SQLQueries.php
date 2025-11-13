@@ -23,8 +23,5 @@ class SQLQueries
         $query_string .= "WHERE email = :email";
         return $query_string;
     }
-
-
-  
 }
 ?>

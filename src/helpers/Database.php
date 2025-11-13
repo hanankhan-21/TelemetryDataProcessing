@@ -47,7 +47,7 @@ class Database
             return $this->db;
         }
 
-        $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->dbName};charset={$this->charset}";
+        $dsn = "mysql:hst={$this->host};port={$this->port};dbname={$this->dbName};charset={$this->charset}";
 
         try {
             $this->db = new PDO($dsn, $this->user, $this->pass, [

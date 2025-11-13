@@ -1,0 +1,284 @@
+/* External CSS file */
+
+.maintenance {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    margin-top: 10px; 
+    padding-right: 15px/* Replace with the actual height of your H1 element */
+}
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container,
+.register-container {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-title,
+.register-title {
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-label {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.form-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #5a51e6;
+}
+
+.register-link a {
+    color: #6c5ce7;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+.registration-container {
+    background: white;
+    padding: 20px;
+    margin: 10px auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+.registration-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control {
+    width: calc(100% - 20px);    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+.form-control:focus {
+    outline: none;
+    border-color: #777;
+}
+.btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #732d91;
+}
+.btn:active {
+    box-shadow: 0 2px #660d69;
+    transform: translateY(2px);
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+.footer a {
+    color: #8e44ad;
+    text-decoration: none;
+    font-weight: bold;
+}
+.curr_page {
+    margin-top: 20px;
+}
+
+
+
+
+.welcome-message {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 600px;
+}
+
+
+.dashboard-square {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 250px;
+    width: 250px; /* Added this line to make it perfectly square */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+.dashboard-square img{
+    height: 150px;
+    width: 150px;
+}
+
+.dashboard-square:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.info-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+.user-detail {
+    text-align: left;
+    margin: 10px 0;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+.user-detail strong {
+    color: #333;
+    margin-right: 10px;
+}
+.user-detail span {
+    color: #6c5ce7;
+}
+.navbar {
+    text-align: center;
+    padding: 10px 0;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Fix the navbar at the top of the viewport */
+    width: 100%; /* Make the navbar full-width */
+    top: 0; /* Position the navbar at the top of the viewport */
+    left: 0;
+    z-index: 100; /* Ensure the navbar appears above other content */
+    /* Rest of your existing navbar styles */
+}
+.navbar a {
+    display: inline-block; /* Display links side by side */
+    margin: 0 15px; /* Margin on left and right */
+    color: #333; /* Dark text color */
+    padding: 10px 20px; /* Padding for clickable area */
+    text-decoration: none; /* No underlines on links */
+    font-weight: bold; /* Bold font weight */
+    transition: color 0.3s ease; /* Transition for color change */
+}
+.navbar a:hover {
+    color: #6c5ce7; /* Color change on hover */
+}
+
+.about-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
+}
+.about-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+.about-container p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+}
+.device-info-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+.refresh-button {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.refresh-button:hover {
+    background: #5a51e6;
+}

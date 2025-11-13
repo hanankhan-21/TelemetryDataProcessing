@@ -9,6 +9,7 @@ class RegisterationModel{
 
 private function registerUser($db, $validatedFullname, $validatedEmail, $validatedPhoneNumber, $hashedPassword)
 {
+    // 1) Check DB connection (optional because connectToDatabase() already dies on failure)
     $connection = $db->connectToDatabase();
 
     if (!($connection instanceof \PDO)) {

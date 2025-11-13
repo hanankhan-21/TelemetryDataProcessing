@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="login-container">
+        <h2 class="login-title">Login</h2>
+
+        {% if login_failure_reason %}
+            <div class="alert alert-danger">
+                {{ login_failure_reason }}
+            </div>
+        {% endif %}
+
+        <form method="{{ method }}" action="{{ action }}">
+            <input id="emaillogin" placeholder="Email" name="email" type="text" value="{{ initial_input_box_value }}" class="form-input" size="30" maxlength="50" required>
+            <br><br>
+            <input id="password"  placeholder="Password" name="password" type="password" value="{{ initial_input_box_value }}" class="form-input" size="30" maxlength="50" required>
+            <br><br>
+            <input type="submit" value="Login" class="submit-button">
+        </form>
+    </div>
+    <div class="register-container">
+        <h2 class="register-title">Don't have an account?</h2>
+        <p class="register-link"><a href="{{ register }}">Register</a></p>
+    </div>
+{% endblock %}
