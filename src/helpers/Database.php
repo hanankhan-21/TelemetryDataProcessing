@@ -192,6 +192,48 @@ class Database
             return false;
         }
     }
+
+
+
+ public function storeMessages(
+    $device_Id,
+    $switch1,
+    $switch2,
+    $switch3,
+    $switch4,
+    $fan,
+    $device_temperature,
+    $last_key_entered,
+    $received_date
+) {
+    try {
+        $sqlQuery = SQLQueries::storeMessages();
+
+        $params = [
+            ':device_id'          => $device_Id,
+            ':switch1'            => $switch1,
+            ':switch2'            => $switch2,
+            ':switch3'            => $switch3,
+            ':switch4'            => $switch4,
+            ':fan'                => $fan,
+            ':device_temperature' => $device_temperature,
+            ':last_key_entered'   => $last_key_entered,
+            ':received_date'      => $received_date,
+        ];
+
+        $result = $this->safeQuery($sqlQuery, $params);
+
+        return $result === true;
+
+    } catch (Exception $e) {
+        $this->errors['db_error']  = true;
+        $this->errors['sql_error'] = $e->getMessage();
+        return false;
+    }
+}
+
+
 }
 
 ?>
+
