@@ -1,9 +1,157 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-<div class="success-box">
-    <h2>Registration Successful 🎉</h2>
-    <p>Your account has been created successfully.</p>
-<a href="{{ login_url }}" class="submit-button">Go to Login</a>
+<div class="success-wrapper">
+
+
+    <!-- Animated Green Tick -->
+    <div class="success-icon">
+        <svg class="checkmark" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark-check" fill="none" d="M14 27l7 7 17-17"/>
+        </svg>
+    </div>
+
+    <h2 class="success-title">Registration Successful!</h2>
+    <p class="success-subtitle">Your account has been created successfully.</p>
+
+    <p class="redirect-msg">
+        Redirecting you to your dashboard in <span id="timer">5</span> seconds...
+    </p>
+
+    <!-- Pulse loader -->
+    <div class="pulse-loader"></div>
+
+    <a href="{{ dashboard_url }}" class="submit-button go-btn">
+        Go to Dashboard Now
+    </a>
 </div>
+
+<script>
+    // Fade-in effect
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelector(".success-wrapper").classList.add("show");
+    });
+
+    // Timer & redirect
+    let secs = 5;
+    const timer = document.getElementById("timer");
+
+    const interval = setInterval(() => {
+        secs--;
+        timer.textContent = secs;
+
+        if (secs <= 0) {
+            clearInterval(interval);
+
+            // Fade-out transition
+            document.querySelector(".success-wrapper").classList.add("fade-out");
+
+            setTimeout(() => {
+                window.location.href = "{{ dashboard_url }}";
+            }, 400);
+        }
+    }, 1000);
+</script>
+
+<style>
+/* WRAPPER */
+.success-wrapper {
+    width: 480px;
+    margin: 60px auto;
+    padding: 30px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .6s ease, transform .6s ease;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.success-wrapper.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.success-wrapper.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* SUCCESS ICON ANIMATION */
+.checkmark {
+    width: 70px;
+    height: 70px;
+    stroke: #2ecc71;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: scaleIn .4s ease-out forwards;
+}
+
+.checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: strokeAnim .6s forwards;
+}
+
+.checkmark-check {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: strokeAnim .3s .6s forwards;
+}
+
+@keyframes strokeAnim {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* TITLES */
+.success-title {
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.success-subtitle {
+    margin-top: 5px;
+    color: #555;
+}
+
+/* PULSE LOADER */
+.pulse-loader {
+    width: 18px;
+    height: 18px;
+    margin: 20px auto;
+    background: #3498db;
+    border-radius: 50%;
+    animation: pulse 0.8s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%   { transform: scale(1);   opacity: 1; }
+    50%  { transform: scale(1.6); opacity: 0.5; }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+/* BUTTON */
+.go-btn {
+    display: inline-block;
+    margin-top: 10px;
+    width: 80%;
+    font-size: 16px;
+}
+
+.redirect-msg {
+    margin-top: 10px;
+    color: #666;
+    font-size: 15px;
+}
+</style>
 {% endblock %}

@@ -21,6 +21,7 @@ class LoginView{
         $application_name = $settings['application_name'] ?? 'Telemetry Processing';
 
          $data = [
+            'header'                 => "Telemetry Data Processing",
             'register'               => $landing_page . '/registerUser',
             'css_path'               => $css_path,
             'landing_page'           => $landing_page,

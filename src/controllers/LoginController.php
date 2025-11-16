@@ -37,10 +37,9 @@ class LoginController{
         $data           = (array) $request->getParsedBody();
         $user_email     = $data['email'] ?? '';
         $user_password  = $data['password'] ?? '';
-       // $validated_email = $validator->sanitiseEmail($user_email);
+        $validated_email = filter_var($user_email, FILTER_VALIDATE_EMAIL);
 
-        // Optional session setup if needed
-    //    $_SESSION['email'] = $validated_email;
+       $_SESSION['email'] = $validated_email;
 
         try {
             // Authenticate user via model

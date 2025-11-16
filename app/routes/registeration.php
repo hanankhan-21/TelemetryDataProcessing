@@ -38,8 +38,12 @@ $app->get('/registerSuccess', function(Request $req, Response $res) use ($app) {
     $container = $app->getContainer();
     $settings  = $container->get('settings');
 
+    // FIX: Add basePath correctly
+    $base = rtrim($settings['landing_page'], '/'); // /telemetryDataProcessing2/public
+
     return $container->get('view')->render($res, 'register_success.html.twig', [
-        'login_url' => rtrim($settings['landing_page'], '/')
+        'dashboard_url' => $base . '/dashboard'
     ]);
 });
+
 
