@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register | Telemetry System{% endblock %}
+
+{% block content %}
+<div class="register-wrapper">
+
+    <h2 class="register-title">Create Account</h2>
+
+    {% if registeration_failed %}
+        <div class="alert alert-danger">
+            {{ registeration_failure_reason }}
+        </div>
+    {% endif %}
+
+    <form method="{{ method }}"  action="{{ action }}" class="register-form">
+
+        <input 
+            type="text" 
+            name="full_name" 
+            placeholder="Full Name" 
+            class="form-input" 
+            required>
+
+        <input 
+            type="email" 
+            name="email" 
+            placeholder="Email Address" 
+            class="form-input" 
+            required>
+
+        <input 
+            type="text"
+            name="phone_number"
+            placeholder="Phone Number"
+            class="form-input"
+            maxlength="15"
+            required>
+
+        <input 
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            class="form-input" 
+            required>
+
+        <input 
+            type="password" 
+            name="confirm_password" 
+            placeholder="Confirm Password" 
+            class="form-input" 
+            required>
+
+        <button type="submit" class="submit-button">Register</button>
+    </form>
+
+    <p class="already-text">
+        Already have an account? <a href="{{ login }}">Login</a>
+    </p>
+</div>
+{% endblock %}

@@ -282,3 +282,95 @@ h2 {
 .refresh-button:hover {
     background: #5a51e6;
 }
+
+
+/* === Registration Page Styles === */
+
+.register-wrapper {
+    width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.register-title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-input {
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+.submit-button {
+    padding: 12px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    font-size: 17px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.already-text {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.already-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.already-text a:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.alert-danger {
+    background-color: #ffdddd;
+    border: 1px solid #ff9c9c;
+    color: #a00000;
+}
+
+.success-box {
+    width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #e8ffea;
+    border: 1px solid #77cc77;
+    border-radius: 10px;
+    text-align: center;
+}
