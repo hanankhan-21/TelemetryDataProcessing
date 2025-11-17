@@ -41,6 +41,50 @@ class SQLQueries
     return $query_string;
 }
 
+public static function getAllMessages()
+{
+    $query  = "SELECT * FROM messages ";
+    $query .= "ORDER BY id DESC";
+
+    return $query;
+}
+
+public static function getMessagesByDevice()
+{
+    $query  = "SELECT * FROM messages ";
+    $query .= "WHERE device_id = :device_id ";
+    $query .= "ORDER BY id DESC";
+
+    return $query;
+}
+
+public static function getLatestMessage()
+{
+    $query  = "SELECT * FROM messages ";
+    $query .= "WHERE device_id = :device_id ";
+    $query .= "ORDER BY id DESC ";
+    $query .= "LIMIT 1";
+
+    return $query;
+}
+
+public static function getMessagesByDateRange()
+{
+    $query  = "SELECT * FROM messages ";
+    $query .= "WHERE received_date BETWEEN :from_date AND :to_date ";
+    $query .= "ORDER BY received_date ASC";
+
+    return $query;
+}
+
+public static function countMessagesPerDevice()
+{
+    $query  = "SELECT device_id, COUNT(*) AS total_messages ";
+    $query .= "FROM messages ";
+    $query .= "GROUP BY device_id";
+
+    return $query;
+}
 
 }
 ?>

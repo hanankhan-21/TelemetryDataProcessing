@@ -12,6 +12,9 @@ use Views\LoginView;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Views\RegisterationView;
+use Views\DashboardView;
+use Controllers\DashboardController;
+use Controllers\LogoutController;
 
 return function (Container $container, App $app): void {
 
@@ -50,5 +53,18 @@ return function (Container $container, App $app): void {
     $container->set('registerationController', function () {
         return new RegistrationController();
     });
+
+$container->set('dashboardView', function () {
+    return new DashboardView();
+});
+
+$container->set('dashboardController', function () {
+    return new DashboardController();
+});
+
+$container->set('logoutController', function () {
+    return new LogoutController();
+});
+
 
 };

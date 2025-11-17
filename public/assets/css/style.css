@@ -374,3 +374,101 @@ h2 {
     border-radius: 10px;
     text-align: center;
 }
+
+/* ====== DASHBOARD ====== */
+
+.welcome-message {
+    text-align: center;
+    margin: 30px 0 10px 0;
+    color: #222;
+}
+
+.welcome-message h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Dashboard grid container */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 20px auto 40px auto;
+    padding: 0 20px;
+}
+
+/* Single square */
+.dashboard-square {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    text-decoration: none;
+    color: #222;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dashboard-square img {
+    max-width: 60px;
+    max-height: 60px;
+    margin-bottom: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dashboard-square h3 {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Hover state */
+.dashboard-square:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+
+/* Responsive: tablet */
+@media (max-width: 900px) {
+    .dashboard-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Responsive: mobile */
+@media (max-width: 600px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 🔹 Logout Button (Top Right Corner) */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background-color: #e63946;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.25s ease-in-out;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.15);
+}
+
+.logout-btn:hover {
+    background-color: #c62828;
+    transform: scale(1.06);
+}
+
+/* Ensure banner/header doesn't overlap */
+.banner-container,
+body {
+    position: relative;
+}

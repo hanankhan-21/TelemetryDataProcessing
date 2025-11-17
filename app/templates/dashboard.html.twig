@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+    <!-- 🔥 Logout Button (Top Right) -->
+    <a href="{{ logoutRoute }}" class="logout-btn">Logout</a>
+
+    <div class="welcome-message">
+        <h2>Welcome {{ user_name }}</h2>
+    </div>
+
+    <div class="dashboard-container">
+        <a href="{{ deviceInfoRoute }}" class="dashboard-square">
+            <img src="{{ device_icon }}" alt="Device Information">
+            <h3>Device Information</h3>
+        </a>
+
+        <a href="{{ userInfoRoute }}" class="dashboard-square">
+            <img src="{{ user_info_icon }}" alt="User Information">
+            <h3>User Information</h3>
+        </a>
+
+        <a href="{{ aboutusRoute }}" class="dashboard-square">
+            <img src="{{ aboutus_icon }}" alt="About Us">
+            <h3>About Us</h3>
+        </a>
+
+        <a href="{{ logsRoute }}" class="dashboard-square">
+            <img src="{{ logs_icon }}" alt="Logs">
+            <h3>Logs</h3>
+        </a>
+    </div>
+
+{% endblock %}

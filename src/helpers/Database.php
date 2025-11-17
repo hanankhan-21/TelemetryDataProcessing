@@ -233,6 +233,139 @@ class Database
 }
 
 
+    /**
+     * Get all messages (newest first)
+     * Returns: array of rows on success, false on DB error
+     */
+    public function getAllMessages(): array|false
+    {
+        try {
+            $sql  = SQLQueries::getAllMessages();
+            $rows = $this->safeQuery($sql);
+
+            if ($rows === false) {
+                // DB error
+                return false;
+            }
+
+            return $rows; // [] if none
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Get all messages for a specific device (newest first)
+     * Returns: array of rows on success, false on DB error
+     */
+    public function getMessagesByDevice(string $deviceId): array|false
+    {
+        try {
+            $sql    = SQLQueries::getMessagesByDevice();
+            $params = [':device_id' => $deviceId];
+
+            $rows = $this->safeQuery($sql, $params);
+
+            if ($rows === false) {
+                // DB error
+                return false;
+            }
+
+            return $rows; // [] if none
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Get the latest message for a specific device
+     * Returns: single row (assoc array) on success, false if none or DB error
+     */
+    public function getLatestMessageForDevice(string $deviceId): array|false
+    {
+        try {
+            $sql    = SQLQueries::getLatestMessage();
+            $params = [':device_id' => $deviceId];
+
+            $rows = $this->safeQuery($sql, $params);
+
+            if ($rows === false || empty($rows)) {
+                // DB error OR no rows
+                return false;
+            }
+
+            // Only one row because of LIMIT 1
+            return $rows[0];
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Get messages in a date range (for graphs / reports)
+     * $fromDate and $toDate should be 'Y-m-d H:i:s' strings
+     * Returns: array of rows on success, false on DB error
+     */
+    public function getMessagesByDateRange(string $fromDate, string $toDate): array|false
+    {
+        try {
+            $sql = SQLQueries::getMessagesByDateRange();
+
+            $params = [
+                ':from_date' => $fromDate,
+                ':to_date'   => $toDate,
+            ];
+
+            $rows = $this->safeQuery($sql, $params);
+
+            if ($rows === false) {
+                // DB error
+                return false;
+            }
+
+            return $rows; // [] if none
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Count messages grouped by device_id
+     * Returns: array of [device_id, total_messages] rows, or false on DB error
+     */
+    public function countMessagesPerDevice(): array|false
+    {
+        try {
+            $sql  = SQLQueries::countMessagesPerDevice();
+            $rows = $this->safeQuery($sql);
+
+            if ($rows === false) {
+                // DB error
+                return false;
+            }
+
+            return $rows; // [] if none
+
+        } catch (Exception $e) {
+            $this->errors['db_error']  = true;
+            $this->errors['sql_error'] = $e->getMessage();
+            return false;
+        }
+    }
+
+
 }
 
 ?>
