@@ -6,3 +6,4 @@ require "api.php";
 require "dashboard.php";
 require "logout.php";
 require "userInformation.php";
+require "deviceInfo.php";

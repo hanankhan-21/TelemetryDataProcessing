@@ -18,6 +18,9 @@ use Controllers\LogoutController;
 use Models\UserInfoModel;
 use Views\UserInfoView;
 use Controllers\UserInfoController;
+use Models\DeviceInfoModel;
+use Views\DeviceInfoView;
+use Controllers\DeviceInfoController;
 
 return function (Container $container, App $app): void {
 
@@ -79,6 +82,18 @@ $container->set('userInfoView', function () {
 
 $container->set('userInfoController', function () {
     return new UserInfoController();
+});
+
+$container->set('deviceInfoModel', function () {
+    return new DeviceInfoModel();
+});
+
+$container->set('deviceInfoView', function () {
+    return new DeviceInfoView();
+});
+
+$container->set('deviceInfoController', function () {
+    return new DeviceInfoController();
 });
 
 };

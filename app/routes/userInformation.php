@@ -9,3 +9,4 @@ $app->get('/userInfo', function (Request $request, Response $response) use ($app
 
     return $controller->showUserInfo($container, $request, $response);
 });
+

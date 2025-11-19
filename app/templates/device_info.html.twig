@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="device-info-wrapper">
+
+    <div class="device-info-header">
+        <div class="device-info-title-block">
+            <h2>Device Information</h2>
+            <p class="device-info-subtitle">
+                Select a device to view its latest telemetry data.
+            </p>
+        </div>
+
+        <a href="{{ dashboard_link }}" class="user-info-back">← Back to Dashboard</a>
+    </div>
+
+    <div class="device-info-layout">
+
+        {# LEFT: device list #}
+        <aside class="device-list">
+            <h3 class="device-list-title">Devices</h3>
+
+            <ul class="device-list-ul">
+                {% if devices is not empty %}
+                    {% for d in devices %}
+                        <li>
+                            <a
+                                href="{{ landing_page }}/deviceInfo?device_id={{ d.device_id }}"
+                                class="device-item {% if d.device_id == selected_device_id %}active{% endif %}"
+                            >
+                                <div class="device-item-main">
+                                    <span class="device-id">{{ d.device_id }}</span>
+                                </div>
+                                <div class="device-item-meta">
+                                    <span class="device-count">{{ d.total_messages }} messages</span>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="device-empty">
+                        No devices found yet. Wait for telemetry to arrive.
+                    </li>
+                {% endif %}
+            </ul>
+        </aside>
+
+        {# RIGHT: latest telemetry details #}
+        <section class="device-details">
+            {% if selected_device_id %}
+                <h3 class="device-details-title">
+                    Latest telemetry for <span>{{ selected_device_id }}</span>
+                </h3>
+
+                {% if latest_message %}
+                    <div class="device-details-card">
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Switch 1</span>
+                            <span class="device-details-value">{{ latest_message.switch1 }}</span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Switch 2</span>
+                            <span class="device-details-value">{{ latest_message.switch2 }}</span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Switch 3</span>
+                            <span class="device-details-value">{{ latest_message.switch3 }}</span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Switch 4</span>
+                            <span class="device-details-value">{{ latest_message.switch4 }}</span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Fan</span>
+                            <span class="device-details-value">{{ latest_message.fan }}</span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Temperature</span>
+                            <span class="device-details-value">
+                                {{ latest_message.device_temperature }} °C
+                            </span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Last Key Entered</span>
+                            <span class="device-details-value">
+                                {{ latest_message.last_key_entered }}
+                            </span>
+                        </div>
+
+                        <div class="device-details-row">
+                            <span class="device-details-label">Received At</span>
+                            <span class="device-details-value">
+                                {{ latest_message.received_date }}
+                            </span>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="device-details-empty">
+                        No telemetry data available for this device yet.
+                    </p>
+                {% endif %}
+            {% else %}
+                <p class="device-details-empty">
+                    No device selected. Please choose one from the list.
+                </p>
+            {% endif %}
+        </section>
+
+    </div>
+
+</div>
+{% endblock %}
