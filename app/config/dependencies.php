@@ -15,6 +15,9 @@ use Views\RegisterationView;
 use Views\DashboardView;
 use Controllers\DashboardController;
 use Controllers\LogoutController;
+use Models\UserInfoModel;
+use Views\UserInfoView;
+use Controllers\UserInfoController;
 
 return function (Container $container, App $app): void {
 
@@ -66,5 +69,16 @@ $container->set('logoutController', function () {
     return new LogoutController();
 });
 
+$container->set('userInfoModel', function () {
+    return new UserInfoModel();
+});
+
+$container->set('userInfoView', function () {
+    return new UserInfoView();
+});
+
+$container->set('userInfoController', function () {
+    return new UserInfoController();
+});
 
 };

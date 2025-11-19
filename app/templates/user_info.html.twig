@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="user-info-wrapper">
+
+    <div class="user-info-header">
+        <div class="user-info-title-block">
+            <h2>Your Profile</h2>
+            <p class="user-info-subtitle">
+                Manage your account information and see your account activity.
+            </p>
+        </div>
+
+        {% if back_link is defined and back_link %}
+            <a href="{{ back_link }}" class="user-info-back">← Back to Dashboard</a>
+        {% endif %}
+    </div>
+
+    <div class="user-info-card">
+
+        <!-- Left: avatar + name -->
+        <div class="user-info-left">
+            <div class="avatar-circle">
+                {{ user.full_name|first|upper }}
+            </div>
+            <h3 class="user-info-name">{{ user.full_name }}</h3>
+            <p class="user-info-email">{{ user.email }}</p>
+        </div>
+
+        <!-- Right: details list -->
+        <div class="user-info-right">
+            <div class="user-info-row">
+                <span class="user-info-label">Full Name</span>
+                <span class="user-info-value">{{ user.full_name }}</span>
+            </div>
+
+            <div class="user-info-row">
+                <span class="user-info-label">Email</span>
+                <span class="user-info-value">{{ user.email }}</span>
+            </div>
+
+            <div class="user-info-row">
+                <span class="user-info-label">Phone Number</span>
+                <span class="user-info-value">
+                    {{ user.phone_number is defined and user.phone_number ? user.phone_number : 'Not provided' }}
+                </span>
+            </div>
+
+            <div class="user-info-row">
+                <span class="user-info-label">Last Login</span>
+                <span class="user-info-value">
+                    {{ user.last_login is defined and user.last_login ? user.last_login : 'No login record' }}
+                </span>
+            </div>
+
+            <div class="user-info-row">
+                <span class="user-info-label">Member Since</span>
+                <span class="user-info-value">
+                    {{ user.created_at is defined and user.created_at ? user.created_at : 'N/A' }}
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
