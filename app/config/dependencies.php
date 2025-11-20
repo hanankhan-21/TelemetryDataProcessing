@@ -21,6 +21,11 @@ use Controllers\UserInfoController;
 use Models\DeviceInfoModel;
 use Views\DeviceInfoView;
 use Controllers\DeviceInfoController;
+use Views\AboutUsView;
+use Controllers\AboutUsController;
+use Views\LogsView;
+use Controllers\LogsController;
+
 
 return function (Container $container, App $app): void {
 
@@ -95,5 +100,25 @@ $container->set('deviceInfoView', function () {
 $container->set('deviceInfoController', function () {
     return new DeviceInfoController();
 });
+
+
+$container->set('aboutUsView', function () {
+    return new AboutUsView();
+});
+
+$container->set('aboutUsController', function () {
+    return new AboutUsController();
+});
+
+
+
+$container->set('logsView', function () {
+    return new LogsView();
+});
+
+$container->set('logsController', function () {
+    return new LogsController();
+});
+
 
 };

@@ -816,3 +816,152 @@ body {
         margin-top: 3px;
     }
 }
+
+/* ========== ABOUT US PAGE ========== */
+
+.about-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.about-card {
+    background: #ffffff;
+    border-radius: 12px;
+    max-width: 900px;
+    width: 100%;
+    padding: 24px 28px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.about-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #1f2933;
+}
+
+.about-intro {
+    margin-bottom: 20px;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.about-section {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #edf2f7;
+}
+
+.about-section h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #2c5282;
+}
+
+.about-section p {
+    margin: 0;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.about-list {
+    margin: 8px 0 0 18px;
+    padding: 0;
+    color: #4a5568;
+}
+
+.about-list li {
+    margin-bottom: 4px;
+}
+
+/* ========== LOGS PAGE ========== */
+
+.logs-wrapper {
+    padding: 24px 16px;
+}
+
+.logs-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.logs-title {
+    font-size: 22px;
+    margin: 0;
+    color: #1f2933;
+}
+
+.logs-subtitle {
+    margin: 4px 0 0;
+    color: #4a5568;
+}
+
+.logs-filter-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logs-filter-form label {
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.logs-select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+    font-size: 14px;
+}
+
+.logs-filter-button {
+    padding: 6px 14px;
+    font-size: 14px;
+}
+
+.logs-empty {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #edf2f7;
+    color: #4a5568;
+}
+
+.logs-table-wrapper {
+    margin-top: 12px;
+    overflow-x: auto;
+}
+
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+}
+
+.logs-table thead {
+    background: #2b6cb0;
+    color: #ffffff;
+}
+
+.logs-table th,
+.logs-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.logs-table tbody tr:nth-child(even) {
+    background: #f7fafc;
+}
+
+.logs-table tbody tr:hover {
+    background: #ebf8ff;
+}

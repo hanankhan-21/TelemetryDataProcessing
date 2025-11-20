@@ -65,3 +65,5 @@ require "dashboard.php";
 require "logout.php";
 require "userInformation.php";
 require "deviceInfo.php";
+require "aboutUs.php";
+require "logs.php";

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About Us | {{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="about-wrapper">
+    <div class="about-card">
+        <h2 class="about-title">About Telemetry Processing System</h2>
+        <p class="about-intro">
+            This system was built to collect, store, and analyse telemetry data from remote devices
+            in a reliable and user-friendly way. It allows authenticated users to monitor device status,
+            view message logs, and understand how their devices are performing over time.
+        </p>
+
+        <div class="about-section">
+            <h3>What this project does</h3>
+            <ul class="about-list">
+                <li>Secure user authentication with sessions</li>
+                <li>Real-time telemetry ingestion via an HTTP API</li>
+                <li>Device information and latest message view</li>
+                <li>Historical logs for debugging and analysis</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h3>Technical overview</h3>
+            <p>
+                The application is built using <strong>Slim PHP</strong>, <strong>Twig templates</strong>, and a
+                <strong>MySQL</strong> database. Device data is posted to the <code>/api/telemetry</code> endpoint
+                and stored in the <code>messages</code> table. The web interface lets users log in and explore that data.
+            </p>
+        </div>
+
+        <div class="about-section">
+            <h3>Student / Developer note</h3>
+            <p>
+                This project was developed as a university assignment to demonstrate secure login,
+                session management, API integration, and a basic telemetry dashboard.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
