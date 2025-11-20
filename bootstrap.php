@@ -7,6 +7,11 @@ use Models\RegisterationModel;
 use Models\LoginModel;
 
 
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require __DIR__ . '/vendor/autoload.php';
 
 $baseDir   = __DIR__;
@@ -34,5 +39,6 @@ $routes =  require $routesDir . '/routes.php';
 $db = $container->get('database');
 
 $settings= $container->get('settings');
+
 
 $app->run();

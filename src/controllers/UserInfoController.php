@@ -23,11 +23,9 @@ class UserInfoController{
             session_start();
         }
 
-        // Get email from session (set during login)
         $email = $_SESSION['email'] ?? null;
 
         if ($email === null) {
-            // No session → send back to login
             $landing_page = rtrim($settings['landing_page'], '/');
             return $response
                 ->withHeader('Location', $landing_page)
